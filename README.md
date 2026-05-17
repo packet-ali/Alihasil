@@ -32,10 +32,10 @@ Semua fitur terintegrasi dalam satu sistem modern dengan pengalaman layaknya apl
 
 Nama **“Alihasil”** berasal dari gabungan kata:
 
-- **Ali**
+- **Alih**
 - **Hasil**
 
-Nama ini menggambarkan bahwa sesuatu yang awalnya dianggap tidak bernilai — seperti sampah — dapat diolah menjadi hasil yang bermanfaat bagi lingkungan maupun ekonomi masyarakat.
+Nama ini menggambarkan bahwa sesuatu yang awalnya dianggap tidak bernilai — seperti sampah — dapat diolah —— dialih menjadi hasil yang bermanfaat bagi lingkungan maupun ekonomi masyarakat.
 
 ---
 
