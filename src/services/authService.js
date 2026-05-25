@@ -1,70 +1,38 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+  signOut
+} from 'firebase/auth'
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, setDoc } from 'firebase/firestore'
+import { auth, db } from '../firebase/firebase'
 
-import {
-  auth,
-  db,
-} from "../firebase/firebase";
-
-const convertPhoneToEmail = (phone) => {
-  return `${phone}@alihasil.com`;
-};
-
-export const registerUser = async ({
-  phone,
+export const registerUser = async (
+  email,
   password,
-}) => {
+  role
+) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  )
 
-  const email =
-    convertPhoneToEmail(phone);
+  await setDoc(doc(db, 'users', userCredential.user.uid), {
+    uid: userCredential.user.uid,
+    email,
+    role,
+    createdAt: new Date()
+  })
+}
 
-  const result =
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+export const loginUser = async (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password)
+}
 
-  const user = result.user;
-
-  await setDoc(
-    doc(db, "users", user.uid),
-    {
-
-      fullName: "Pengguna Baru",
-
-      phone,
-
-      role: "customer",
-
-      totalCoins: 0,
-
-      totalWaste: 0,
-
-      environmentalImpact: 0,
-
-      createdAt: serverTimestamp(),
-
-      isVerified: true,
-
-    }
-  );
-
-  return user;
-
-};
-
-export const loginUser = async ({
+export const logoutUser = async () => {
+  return signOut(auth)
+}export const loginUser = async ({
   phone,
   password,
 }) => {
