@@ -1,93 +1,29 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase/firebase'
 
-import {
-  onAuthStateChanged,
-} from "firebase/auth";
+const AuthContext = createContext()
 
-import {
-  doc,
-  getDoc,
-} from "firebase/firestore";
-
-import {
-  auth,
-  db,
-} from "../firebase/firebase";
-
-const AuthContext =
-  createContext();
-
-export const AuthProvider = ({
-  children,
-}) => {
-
-  const [currentUser,
-    setCurrentUser] =
-    useState(null);
-
-  const [loading,
-    setLoading] =
-    useState(true);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
 
-    const unsubscribe =
-      onAuthStateChanged(
-        auth,
-        async (user) => {
-
-          if (user) {
-
-            const userRef =
-              doc(
-                db,
-                "users",
-                user.uid
-              );
-
-            const userSnap =
-              await getDoc(userRef);
-
-            if (userSnap.exists()) {
-
-              setCurrentUser({
-                uid: user.uid,
-                ...userSnap.data(),
-              });
-
-            }
-
-          } else {
-
-            setCurrentUser(null);
-
-          }
-
-          setLoading(false);
-
-        }
-      );
-
-    return unsubscribe;
-
-  }, []);
+    return () => unsub()
+  }, [])
 
   return (
-    <AuthContext.Provider
-      value={{
-        currentUser,
-        loading,
-      }}
-    >
-      {children}
+    <AuthContext.Provider value={{ user }}>
+      {!loading && children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export const useAuth = () =>
-  useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext)
+}
