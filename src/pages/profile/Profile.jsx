@@ -1,42 +1,31 @@
-import { useState } from 'react'
+import BottomNavbar from '../../components/navbar/BottomNavbar'
 
 export default function Profile() {
-  const [profile, setProfile] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    ktp: ''
-  })
-
   return (
-    <div className='p-5 space-y-5'>
-      <div className='bg-white p-5 rounded-3xl'>
-        <h2 className='font-bold text-xl mb-4'>Data Pengguna</h2>
+    <div className='min-h-screen bg-[#f5f7f5] p-5 pb-24'>
+      <div className='bg-white rounded-3xl p-5 shadow'>
+        <div className='flex items-center gap-4'>
+          <div className='w-20 h-20 rounded-full bg-green-200'></div>
 
-        <input
-          type='text'
-          placeholder='Nama Lengkap'
-          className='w-full p-3 border rounded-xl mb-3'
-        />
-
-        <input
-          type='text'
-          placeholder='Nomor HP'
-          className='w-full p-3 border rounded-xl mb-3'
-        />
-
-        <input
-          type='email'
-          placeholder='Email'
-          className='w-full p-3 border rounded-xl mb-3'
-        />
-
-        <input
-          type='text'
-          placeholder='Nomor KTP'
-          className='w-full p-3 border rounded-xl'
-        />
+          <div>
+            <h1 className='text-xl font-bold'>Ali User</h1>
+            <p className='text-gray-500'>Nasabah Aktif</p>
+          </div>
+        </div>
       </div>
+
+      <div className='bg-white rounded-3xl p-5 shadow mt-5'>
+        <h2 className='font-semibold mb-4'>Data Pengguna</h2>
+
+        <div className='space-y-3'>
+          <input className='w-full border p-3 rounded-xl' placeholder='Nama Lengkap' />
+          <input className='w-full border p-3 rounded-xl' placeholder='Email' />
+          <input className='w-full border p-3 rounded-xl' placeholder='Nomor HP' />
+          <input className='w-full border p-3 rounded-xl' placeholder='Nomor KTP' />
+        </div>
+      </div>
+
+      <BottomNavbar />
     </div>
   )
 }
