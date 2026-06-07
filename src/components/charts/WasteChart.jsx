@@ -3,6 +3,7 @@ import {
   BarChart,
   Bar,
   XAxis,
+  YAxis,
   Tooltip,
 } from "recharts";
 
@@ -40,28 +41,32 @@ const data = [
 export default function WasteChart() {
   return (
     <div className="w-full h-64">
-
       <ResponsiveContainer width="100%" height="100%">
-
         <BarChart data={data}>
-
           <XAxis
             dataKey="name"
             tickLine={false}
             axisLine={false}
           />
 
-          <Tooltip />
+          <YAxis
+            domain={[0, 50]}
+            ticks={[0, 10, 20, 30, 40, 50]}
+            tickFormatter={(value) => `${value}kg`}
+          />
+
+          <Tooltip
+            formatter={(value) => `${value} kg`}
+          />
 
           <Bar
             dataKey="plastik"
             radius={[12, 12, 0, 0]}
           />
-
         </BarChart>
-
       </ResponsiveContainer>
-
     </div>
+  );
+}    </div>
   );
 }
