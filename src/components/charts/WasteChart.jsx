@@ -67,6 +67,4 @@ export default function WasteChart() {
       </ResponsiveContainer>
     </div>
   );
-}    </div>
-  );
 }
